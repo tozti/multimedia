@@ -1,5 +1,5 @@
-# tozti-drive
-*A nice interface for viewing and managing your files in tozti.*
+# tozti-media
+*An interface for viewing and managing your files in tozti.*
 
 ## Usage.
 

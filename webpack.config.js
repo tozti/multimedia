@@ -1,57 +1,70 @@
 const path = require('path')
 const webpack = require('webpack')
+const extract = require('extract-text-webpack-plugin')
 
+// Custom loader for static assets
+const fileLoader = {
+  loader: 'file-loader',
+  options: {
+    name: '[path][name].[ext]',
+    context: path.resolve(__dirname, 'assets')
+  }  
+}
+
+// Webpack configuration
 module.exports = {
-  entry: './src/index.js',
+  entry: [
+    './src/index.js',
+    './assets/sass/style.scss',
+    // 'multi-entry-loader?include=./assets/img/**.*!',
+    // 'multi-entry-loader?include=./assets/fonts/**.*!',
+  ],
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'build.js'
   },
+
+  plugins: [
+    new extract('css/style.css'),
+  ],
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ],
+        use: extract.extract(['css-loader']),
       },
       {
         test: /\.scss$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader'
-        ],
+        use: extract.extract({
+          fallback: 'vue-style-loader',
+          use: ['css-loader', 'sass-loader'],
+        })
       },
       {
         test: /\.sass$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader?indentedSyntax'
-        ],
+        use: extract.extract({
+          fallback: 'vue-style-loader',
+          use: ['css-loader', 'sass-loader?indentedSyntax'],
+        })
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this necessary.
-            'scss': [
-              'vue-style-loader',
-              'css-loader',
-              'sass-loader'
-            ],
-            'sass': [
-              'vue-style-loader',
-              'css-loader',
-              'sass-loader?indentedSyntax'
-            ]
+            'css': extract.extract({
+              fallback: 'vue-style-loader',
+              use: ['css-loader'],
+            }),
+            'scss': extract.extract({
+              fallback: 'vue-style-loader',
+              use: ['css-loader', 'sass-loader'],
+            }),
+            'sass': extract.extract({
+              fallback: 'vue-style-loader',
+              use: ['css-loader', 'sass-loader?indentedSyntax'],
+            })
           }
-          // other vue-loader options go here
         }
       },
       {
@@ -61,17 +74,19 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
+        use: [fileLoader, 'image-webpack-loader'],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [fileLoader]
       }
     ]
   },
   resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    },
     extensions: ['*', '.js', '.vue', '.json']
+  },
+  externals: {
+    vue: 'Vue',
+    tozti: 'tozti'
   }
 }

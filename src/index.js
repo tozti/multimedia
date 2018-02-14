@@ -1,6 +1,4 @@
-import Main from './main.vue';
+'use strict'
 
-new Vue({
-  el: '#app',
-  render: h => h(Main)
-})
+import tozti from 'tozti'
+import Vue from 'vue'

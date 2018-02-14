@@ -1,4 +1,3 @@
-```
 # tozti-drive
 *A nice interface for viewing and managing your files in tozti.*
 

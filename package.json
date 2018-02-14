@@ -1,7 +1,7 @@
 {
-  "name": "tozti-extension",
+  "name": "tozti-drive",
   "version": "1.0.0",
-  "description": "A common boilerplate for tozti extensions.",
+  "description": "Managing and viewing your accessible files",
   "main": "dist/js/index.js",
   "dependencies": {},
   "devDependencies": {

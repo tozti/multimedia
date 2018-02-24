@@ -1,3 +1,11 @@
 MANIFEST = {
-    'includes': ['bundle.js', 'bundle.css'],
+    'includes': ['build.js', 'css/style.css'],
+    'types': {
+        'multimedia': {
+            'attributes': {
+                'name': { 'type': 'string' },
+            },
+            'relationships': {},
+        }
+    }
 }

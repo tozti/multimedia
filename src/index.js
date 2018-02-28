@@ -1,4 +1,8 @@
-'use strict'
+import App from './components/App.vue';
 
-import tozti from 'tozti'
-import Vue from 'vue'
+
+tozti.addRoutes([
+ { path: '/tozti-multimedia', component: App }
+])
+
+tozti.addMenuItem("Multimedia", "/tozti-multimedia",)

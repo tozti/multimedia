@@ -7,78 +7,36 @@
           <img :src="preview" alt="" class="preview">
         </div>
       </div>
-      <div class="row pages">
+      <div class="previews">
         <div class="col-md-4" v-for="page in pages">
           <img :src="page.url" alt="" class="img-responsive" @click="selectImage(page.page)">
         </div>
       </div>
-      <div class="row upload" v-if="!file">
-        <div class="col-md-offset-4 col-md-4">
-          <button @click="openWidget()">Upload PDF</button>
-        </div>
-      </div>
     </div>
 
-   <div v-if="resource">
+ <!--   <div v-if="resource">
      {{ resource.attributes.name }}
    </div>
    <div v-else>
     <div class="loading-spinner"></div>
-   </div>
+   </div> -->
  </div>
 </template>
 
 <script>
   export default {
+    props: ['openWidget', 'selectImage', 'file', 'pages'],
 
     data() {
       return {
-          file: null,
-          preview: null,
-          pages: [],
-
           resource: null,
           loading: true,
       }
     },
-
-    created() {
-        let pdfUploadScript = document.createElement('script')
-        pdfUploadScript.setAttribute('src', '//widget.cloudinary.com/global/all.js')
-        document.head.appendChild(pdfUploadScript)
-    },
-
   methods: {
-    selectImage(page) {
-      this.preview = `http://res.cloudinary.com/christekh/image/upload/w_350,h_400,c_fill,pg_${page}/${this.file.public_id}.jpg`
-    },
 
-    openWidget(url) {
-      window.cloudinary.openUploadWidget(
-        {
-          cloud_name: 'christekh',
-          upload_preset: 'qbojwl6e',
-          tags: ['pdf'],
-          sources: [
-            'local',
-            'url',
-          ]
-        },
-        (error, result) => {
-          console.log(error, result);
-          this.file = result[0];
-          this.preview = `http://res.cloudinary.com/christekh/image/upload/w_350,h_400,c_fill,pg_1/${this.file.public_id}.jpg`;
-          for (let i = 1; i <= this.file.pages; i++) {
-            this.pages.push(
-              {
-                url: `http://res.cloudinary.com/christekh/image/upload/w_200,h_250,c_fill,pg_${i}/${this.file.public_id}.jpg`,
-                page: i
-              }
-            )
-          }
-        }
-      );
-    }
+
+  
   }
 }
 </script>
@@ -88,9 +46,14 @@
   display: flex;
 }
 
-.preview {
-  margin-top: 40px;
+
+.previews {
+  margin-top: 20px;
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
 }
+
 img {
   display: block;
   margin: auto;
@@ -101,14 +64,6 @@ img {
 .upload {
   margin-top: 30%;
   margin-left: 14%;
-}
-
-button {
-  color: #687DDB;
-  padding: 10px 15px;
-  border: #e1e1e1;
-  background: #fff;
-  border-radius: 4px;
 }
 
 #app {

@@ -17,7 +17,8 @@
             <ul>
                 <h3> Gestion </h3>
                 <li> <a href="#" > Partage</a> </li>
-                <li> <a href="#"> Upload</a> </li>
+                <li> 
+                <a v-on:click="openWidget()">Upload</a></li>
                 <li> <a href="#"> Download</a> </li>
             </ul>
         </nav>
@@ -28,6 +29,20 @@
 </template>
 
 <script>
+export default {
+    props: ['openWidget'],
+
+  data(){
+    return{
+
+    }
+  },
+
+  methods: {
+      
+
+  }
+}
 </script>
 
 <style scoped>
@@ -96,4 +111,5 @@
   border-left: 2px solid #f4f4f4;
   border-right: 2px solid #f4f4f4;
   font-family: "Renner*", sans-serif; }
+
 </style>

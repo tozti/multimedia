@@ -1,9 +1,11 @@
 <template>
- <section class="fixed-content" style="padding: 20px">
+ <section class="fixed-content">
         <div class="tc-content-wrapper">
             <div class="tc-content">
                 <MediaDisplay />
-                <Sidebar />
+            </div>
+            <div class="tc-content">
+                <Sidebar/>
             </div>
         </div>
     </section>

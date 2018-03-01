@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div class="container">
-      <h3 class="text-center" style="color:#fff">PDF Viewer</h3>
       <div class="row">
         <div class="col-md-6 col-md-offset-3" v-if="file">
           <img :src="preview" alt="" class="preview">
@@ -44,6 +43,7 @@
 <style scoped>
 .container {
   display: flex;
+  margin-left: 20px;
 }
 
 
@@ -63,7 +63,6 @@ img {
 
 .upload {
   margin-top: 30%;
-  margin-left: 14%;
 }
 
 #app {

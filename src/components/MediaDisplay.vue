@@ -112,7 +112,6 @@ button {
 }
 
 #app {
-  background: #687DDB;
 }
 
 .pages {

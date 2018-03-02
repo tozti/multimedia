@@ -1,8 +1,14 @@
-import App from './components/App.vue';
+'use strict'
 
+import Viewer from './components/Viewer.vue'
+import TaxonomyItem from './components/TaxonomyItem.vue'
+import NewFileForm from './components/Forms/NewFileForm.vue'
 
-tozti.addRoutes([
- { path: '/tozti-multimedia', component: App }
-])
-
-tozti.addMenuItem("Multimedia", "/tozti-multimedia", { icon: 'nc-folder-15' })
+// Custom resource types.
+tozti.addResourceType(
+    'media/file',
+    'upload', 'fichier', 'm',
+    TaxonomyItem,
+    Viewer,
+    NewFileForm
+)
